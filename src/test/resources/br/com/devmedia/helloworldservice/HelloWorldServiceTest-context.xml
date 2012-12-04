@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:jaxws="http://cxf.apache.org/jaxws"
+    xmlns="http://www.springframework.org/schema/beans"
+    xmlns:cxf="http://cxf.apache.org/core"
+    xmlns:wsa="http://cxf.apache.org/ws/addressing"
+    xmlns:http="http://cxf.apache.org/transports/http/configuration"
+    
+    xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://cxf.apache.org/transports/http/configuration http://cxf.apache.org/schemas/configuration/http-conf.xsd
+		http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+		http://cxf.apache.org/jaxws
+		http://cxf.apache.org/schemas/jaxws.xsd" >
+
+    <jaxws:endpoint
+        id="server"
+        address="http://localhost:9292/hello"
+        implementor="br.com.devmedia.helloworldservice.SimpleHelloService"
+        bus="serverBus"
+        >
+        <jaxws:properties>
+            <entry key="schema-validation-enabled" value="true" />
+        </jaxws:properties>
+    </jaxws:endpoint>
+
+    <jaxws:endpoint
+        id="reply"
+        address="http://localhost:9293/reply"
+        implementor="br.com.devmedia.helloworldservice.CallbackImpl"
+        bus="replyBus"
+        >
+        
+		<jaxws:features>
+		    <bean class="org.apache.cxf.feature.LoggingFeature" />
+		</jaxws:features>
+        <jaxws:properties>
+            <entry key="schema-validation-enabled" value="true" />
+        </jaxws:properties>
+    </jaxws:endpoint>
+  
+    <cxf:bus name="replyBus">
+    </cxf:bus>
+        
+    <cxf:bus name="serverBus">
+        <cxf:features>
+            <wsa:addressing/>
+        </cxf:features>
+    </cxf:bus>
+        
+</beans>

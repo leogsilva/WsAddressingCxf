@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="HelloServiceService" targetNamespace="http://devmedia.sayhello" xmlns:wsp="http://www.w3.org/ns/ws-policy" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://devmedia.sayhello" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://devmedia.sayhello" elementFormDefault="unqualified" targetNamespace="http://devmedia.sayhello" version="1.0">
+<xs:element name="digaOla" type="tns:digaOla"/>
+<xs:element name="digaOlaResponse" type="tns:digaOlaResponse"/>
+<xs:complexType name="digaOla">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+<xs:complexType name="digaOlaResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="response" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="digaOla">
+    <wsdl:part name="parameters" element="tns:digaOla">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="digaOlaResponse">
+    <wsdl:part name="parameters" element="tns:digaOlaResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="HelloService">
+    <wsdl:operation name="digaOla">
+      <wsdl:input name="digaOla" message="tns:digaOla" wsam:Action="http://devmedia.sayhello/HelloService/digaOlaRequest" wsaw:Action="http://devmedia.sayhello/HelloService/digaOlaRequest">
+    </wsdl:input>
+      <wsdl:output name="digaOlaResponse" message="tns:digaOlaResponse" wsam:Action="http://devmedia.sayhello/HelloService/digaOlaResponse" wsaw:Action="http://devmedia.sayhello/HelloService/digaOlaResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="HelloServiceServiceSoapBinding" type="tns:HelloService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsaw:UsingAddressing wsdl:required="true"/>
+    <wsp:PolicyReference URI="#HelloServiceServiceSoapBinding_WSAM_Addressing_Policy"/>
+    <wsdl:operation name="digaOla">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="digaOla">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="digaOlaResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="HelloServiceService">
+    <wsdl:port name="HelloServicePort" binding="tns:HelloServiceServiceSoapBinding">
+      <soap:address location="http://localhost:9090/HelloServicePort"/>
+    </wsdl:port>
+  </wsdl:service>
+    <wsp:Policy wsu:Id="HelloServiceServiceSoapBinding_WSAM_Addressing_Policy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><wsam:Addressing><wsp:Policy/></wsam:Addressing></wsp:Policy>
+</wsdl:definitions>

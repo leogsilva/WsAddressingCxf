@@ -1,0 +1,23 @@
+<soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" >
+    <soap:Header>
+        <Action xmlns="http://www.w3.org/2005/08/addressing" >
+			http://devmedia.sayhello/HelloService/digaOlaResponse
+        </Action>
+        <MessageID xmlns="http://www.w3.org/2005/08/addressing" >
+			urn:uuid:ed7b9091-a225-4cff-94be-d7bcccd7cff2
+        </MessageID>
+        <To xmlns="http://www.w3.org/2005/08/addressing" >
+			http://localhost:9293/reply
+        </To>
+        <RelatesTo xmlns="http://www.w3.org/2005/08/addressing" >
+			urn:uuid:647a8c13-01a7-4838-aa38-9e46f0e256b7
+        </RelatesTo>
+    </soap:Header>
+    <soap:Body>
+        <ns2:digaOlaResponse xmlns:ns2="http://devmedia.sayhello" >
+            <response>
+				Hello Tester2
+            </response>
+        </ns2:digaOlaResponse>
+    </soap:Body>
+</soap:Envelope>
